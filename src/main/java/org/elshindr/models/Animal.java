@@ -3,6 +3,7 @@ package org.elshindr.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.elshindr.enums.Sex;
 
 import java.util.List;
@@ -14,12 +15,17 @@ public class Animal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(length = 50)
+    @NotBlank
+    @Size(max = 50)
     private String color;
 
     @Enumerated(EnumType.STRING)
     private Sex sex;
 
+    @Column(length = 50)
     @NotBlank
+    @Size(max = 50)
     private String name;
 
     @ManyToOne

@@ -1,6 +1,8 @@
 package org.elshindr.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="species")
@@ -9,11 +11,16 @@ public class Species {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+
+    @NotBlank // ni null, ni vide, ni espace vide
+    @Size(max = 50)
     @Column(name="common_name")
     private String commonName;
 
-
-    @Column(name="latin_name")
+    @NotBlank
+    @Size(max = 50)
+    @Column(name="latin_name", length = 50)
     private String latinName;
 
     public Species() {

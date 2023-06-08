@@ -1,10 +1,8 @@
 package org.elshindr.controlers;
 
-import jakarta.persistence.Entity;
+
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
-import org.elshindr.exceptions.EntityNotFoundException;
-import org.elshindr.exceptions.EntityToCreateHasAnIdException;
+import org.elshindr.dtos.dtos.PersonDto;
 import org.elshindr.models.Person;
 import org.elshindr.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +23,10 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping("pageable")
-    public Page<Person> getAll(@RequestParam(value = "pageSize", required = false, defaultValue = "0") Integer pageSize,
+    public Page<PersonDto> getAll(@RequestParam(value = "pageSize", required = false, defaultValue = "2") Integer pageSize,
                                @RequestParam(value = "pageNumber", required = false, defaultValue ="5") Integer pageNumber){
-        return personService.getAll(PageRequest.of(0, 5));
+
+        return personService.getAll(PageRequest.of(pageNumber, pageSize));
     }
 
     @GetMapping
@@ -35,16 +34,10 @@ public class PersonController {
         return personService.getAll();
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<?> getOne(@PathVariable Integer id){
 
-        Person person;
-        try{
-            person = personService.getOne(id);
-        } catch(EntityNotFoundException e){
-            return ResponseEntity.badRequest().body("Pas d'entité avec cette ID");
-        }
-        return ResponseEntity.ok(person);
+    @GetMapping("{id}")
+    public Person getOne(@PathVariable Integer id){
+      return personService.getOne(id);
     }
 
 
