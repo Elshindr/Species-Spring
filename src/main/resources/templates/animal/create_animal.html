@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="fr">
+<head th:replace="fragments/nav :: head">
+</head>
+
+<body>
+    <div th:replace="fragments/nav :: nav"></div>
+    <h1>Création Animal</h1>
+    <hr class="my-4">
+
+    <form id="form-create" th:object="${animal}" th:action="@{/animal}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="col-md-4">
+            <label class="form-label"  for="name">Nom</label>
+            <input class="form-control" type="text" th:field="*{name}" id="name"/>
+            <span class="errors" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label" for="sex">Sexe</label>
+            <select class="form-control" th:field="*{sex}" id="sex">
+                <option th:each="sex:${sexList}"
+                        th:value="${sex}"
+                        th:text="${sex}">
+
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label"  for="color">Couleur</label>
+            <input class="form-control" type="text" th:field="*{color}" id="color"/>
+            <span class="errors" th:if="${#fields.hasErrors('color')}" th:errors="*{color}">Error</span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label" for="species">Espèce</label>
+            <select class="form-control" th:field="*{species}" id="species">
+                <option th:each="sp:${speciesList}"
+                        th:value="${sp.id}"
+                        th:text="${sp.commonName + ' (' + sp.latinName + ')'}">
+
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <input  class="btn btn-save" type="submit" value="Sauver"/>
+            <input  class="btn btn-prev" type="button" value="Retour" onclick="window.location='/animal'"/>
+        </div>
+    </form>
+
+</body>
+</html>

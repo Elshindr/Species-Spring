@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="fr">
+<head th:replace="fragments/nav :: head">
+</head>
+
+<body>
+    <div th:replace="fragments/nav :: nav"></div>
+
+    <h1>Listes des Personnes</h1>
+    <div id="btn-actions">
+        <button class="btn btn-add" type="button" onclick="window.location='person/create'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                <path class="icon-add" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
+            </svg>
+            Ajouter une Personne
+        </button>
+        <form class="form-hidden" action="#" th:action="@{'person/create/random'}" th:method="post" >
+            <button type="submit" class="btn btn-add">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-plus-fill" viewBox="0 0 16 16">
+                    <path class="icon-add" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
+                </svg>
+                Ajouter une Personne au hasard
+            </button>
+        </form>
+    </div>
+    <hr class="my-4">
+
+    <table class="table table-sm table-striped table-hover align-middle w-auto">
+        <thead class="thead-dark">
+            <th class="text-center w-25" scope="col">Nom Prenom</th>
+            <th class="text-center w-25" scope="col">Age</th>
+            <th class="text-center w-25" scope="col">Animaux</th>
+            <th class="text-center w-25" scope="col">Actions</th>
+        </thead>
+        <tbody>
+            <tr th:each="personItem : ${personList}">
+                <td class="text-center w-25" th:text="${personItem.firstname} + ' ' + ${personItem.lastname}"/>
+                <td class="text-center w-25" th:text="${personItem.age}"/>
+                <td class="text-center w-25">
+                    <div th:each="animalItem : ${personItem.lstAnimals}">
+                        <span th:text="${animalItem.name}"></span>
+                    </div>
+                </td>
+                <td class="text-center w-25">
+                    <div id="table-actions-btn">
+                        <a th:href="@{'/person/' + ${personItem.id}}"><i class="bi bi-pencil-fill"></i></a>
+                        <a th:href="@{'/person/delete/' + ${personItem.id}}"
+                           onclick="return confirm('Êtes-vous sûr?')"><i class="bi bi-trash-fill"></i></a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

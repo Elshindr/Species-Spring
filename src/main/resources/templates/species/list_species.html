@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head th:replace="fragments/nav :: head">
+</head>
+
+<body>
+    <div th:replace="fragments/nav :: nav"></div>
+
+    <h1>Listes des Especes</h1>
+
+    <div id="btn-actions">
+        <button class="btn btn-add" type="button" onclick="window.location='/species/create'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                <path class="icon-add" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
+            </svg>
+            Ajouter une Espèce
+        </button>
+    </div>
+
+    <hr class="my-4">
+
+    <table class="table table-sm table-striped table-hover align-middle w-auto">
+        <thead class="thead-dark">
+            <th class="text-center" scope="col">Nom Commun</th>
+            <th class="text-center" scope="col">Nom Latin</th>
+            <th class="text-center" scope="col">Actions</th>
+        </thead>
+        <tbody>
+            <tr th:each="speciesItem : ${speciesList}">
+                <td class="text-center w-25" th:text="${speciesItem.commonName}"/>
+                <td class="text-center w-25" th:text="${speciesItem.latinName}"/>
+                <td class="text-center w-25">
+                    <div id="table-actions-btn">
+                        <a th:href="@{'/species/' + ${speciesItem.id}}"><i class="bi bi-pencil-fill"></i></a>
+                        <a th:href="@{'/species/delete/' + ${speciesItem.id}}"
+                           onclick="return confirm('Êtes-vous sûr ?')"><i class="bi bi-trash-fill"></i></a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

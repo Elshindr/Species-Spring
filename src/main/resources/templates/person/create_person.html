@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="fr">
+<head th:replace="fragments/nav :: head">
+</head>
+
+<body>
+    <div th:replace="fragments/nav :: nav"></div>
+
+    <h1>Création d'une personne</h1>
+    <hr class="my-4">
+
+    <form id="form-create" th:object="${person}" th:action="@{/person}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="col-md-4">
+            <label class="form-label" for="lastname">Nom</label>
+            <input class="form-control" type="text" th:field="*{lastname}" id="lastname" />
+            <span class="errors" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Error</span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label" for="firstname">Prénom</label>
+            <input class="form-control" type="text" th:field="*{firstname}" id="firstname" />
+            <span class="errors" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Error</span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label" for="age">Age</label>
+            <input class="form-control" type="number" th:field="*{age}" id="age" />
+            <span class="errors" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Error</span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label" for="lstAnimals">Animaux Associés</label>
+            <select class="form-select" multiple th:field="*{lstAnimals}" id="lstAnimals">
+                <option th:each="animal :${animalList}" th:value="${animal.id}" th:text="${animal.name}">
+                </option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <input class="btn btn-save" type="submit" value="Sauver">
+            <input class="btn btn-prev" type="button" value="Retour" onclick="window.location='/person'">
+
+
+        </div>
+    </form>
+
+
+</body>
+</html>

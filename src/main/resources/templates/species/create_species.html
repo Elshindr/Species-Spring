@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="fr">
+<head th:replace="fragments/nav :: head">
+</head>
+
+<body>
+    <div th:replace="fragments/nav :: nav"></div>
+    <h1>Création Espèces</h1>
+    <hr class="my-4">
+
+    <form id="form-create" th:object="${species}" th:action="@{/species}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="col-md-4">
+            <label class="form-label" for="commonName">Nom Commun</label>
+            <input class="form-control" type="text" th:field="*{commonName}" id="commonName"/>
+            <span class="errors" th:if="${#fields.hasErrors('commonName')}" th:errors="*{commonName}">Error</span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label" for="latinName">Nom Latin</label>
+            <input class="form-control" type="text" th:field="*{latinName}" id="latinName"/>
+            <span class="errors" th:if="${#fields.hasErrors('latinName')}" th:errors="*{latinName}">Error</span>
+        </div>
+
+        <div class="col-md-4">
+            <input class="btn btn-save" type="submit" value="Sauver"/>
+            <input class="btn btn-prev" type="button" value="Retour" onclick="window.location='/species'"/>
+        </div>
+    </form>
+</body>
+</html>
