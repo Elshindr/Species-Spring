@@ -1,0 +1,17 @@
+package org.elshindr.Species_REST.exceptions;
+
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+/**
+ * EntityNotFoundException
+ * Réécriture du message pour l'exception http Not Found
+ * Déclencher lors d'un get lorsque l'id donné ne ttrouve pas l'objet correspondant
+ */
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class EntityNotFoundException extends RuntimeException{
+    public EntityNotFoundException(){
+        super("Entité non trouvée! =(");
+    }
+}
