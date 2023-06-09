@@ -34,10 +34,11 @@
         <div class="col-md-4">
             <label class="form-label" for="lstAnimals">Animaux Associés</label>
             <select class="form-select" multiple th:field="*{lstAnimals}" id="lstAnimals">
-                <option th:each="animal :${animalList}" th:value="${animal.id}" th:text="${animal.name}">
+                <option th:each="animal :${animalListAll}" th:value="${animal.id}" th:text="${animal.name}">
                 </option>
             </select>
         </div>
+
         <div class="col-md-4">
             <input class="btn btn-save" type="submit" value="Sauver">
             <input class="btn btn-prev" type="button" value="Retour" onclick="window.location='/person'">

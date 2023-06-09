@@ -8,6 +8,10 @@ import org.elshindr.enums.Sex;
 
 import java.util.List;
 
+/**
+ * Animal
+ * Modele pour la classe Animal
+ */
 @Entity
 public class Animal {
 

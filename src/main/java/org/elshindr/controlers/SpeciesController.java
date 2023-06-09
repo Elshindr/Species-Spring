@@ -1,6 +1,5 @@
 package org.elshindr.controlers;
 
-import com.github.javafaker.Faker;
 import jakarta.validation.Valid;
 import org.elshindr.models.Species;
 import org.elshindr.repositories.SpeciesRepository;
@@ -16,6 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * SpeciesController
+ * Execution des méthodes https liées à la classe Species
+ */
 @Controller
 public class SpeciesController {
 
@@ -25,7 +29,8 @@ public class SpeciesController {
     // VIEWS
     @GetMapping("species")
     public String getLstSpecies(Model model){
-        List<Species> lstSpecies = this.speciesRepo.findAll();
+
+        List<Species> lstSpecies = this.speciesRepo.findAll(Sort.by(Sort.Direction.ASC, "commonName"));
 
         model.addAttribute("speciesList", lstSpecies);
 
@@ -46,7 +51,9 @@ public class SpeciesController {
 
     @GetMapping("species/create")
     public String getCreateSpecie(Model model){
+
         model.addAttribute("species", new Species());
+
         return "species/create_species";
     }
 
@@ -56,9 +63,11 @@ public class SpeciesController {
     public String createOrUpdate(@Valid Species speciesItem, BindingResult bindingR) {
 
         if(bindingR.hasErrors()){
+
             if(speciesItem.getId() != null){
                 return "species/detail_species";
             }
+
             return "species/create_species";
         }
 
@@ -69,9 +78,9 @@ public class SpeciesController {
 
     @GetMapping("species/delete/{id}")
     public String deleteSpecies(@PathVariable("id") Integer id) {
+
         this.speciesRepo.deleteById(id);
 
         return "redirect:/species";
     }
-
 }

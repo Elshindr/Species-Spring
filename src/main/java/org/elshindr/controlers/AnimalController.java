@@ -16,10 +16,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * AnimalController
+ * Execution des méthodes https liées à la classe Animal
+ */
 @Controller
 @RequestMapping("animal")
 public class AnimalController {
@@ -37,7 +41,8 @@ public class AnimalController {
     // VIEWS - READ
     @GetMapping
     public String getLstAnimal(Model model){
-        List<Animal> lstAnimals = this.animalRepo.findAll();
+
+        List<Animal> lstAnimals = this.animalRepo.findAll(Sort.by(Sort.Direction.ASC, "name"));
         model.addAttribute("animalList", lstAnimals);
 
         return "animal/list_animal";
@@ -46,13 +51,16 @@ public class AnimalController {
 
     @GetMapping("/{id}")
     public String getDetailAnimal(@PathVariable("id") Integer id, Model model){
+
         Optional<Animal> optionalAnimal = animalRepo.findById(id);
 
         if(optionalAnimal.isEmpty()){
             return  "error";
         }
+
         model.addAttribute("animal", optionalAnimal);
         model.addAttribute("speciesList", speciesRepo.findAll(Sort.by(Sort.Direction.ASC, "commonName")));
+        model.addAttribute("sexList", Sex.values());
 
         return "animal/detail_animal";
     }
@@ -61,12 +69,14 @@ public class AnimalController {
     //CUD
     @GetMapping("/create")
     public String getCreateAnimal(Model model){
+
         model.addAttribute("animal", new Animal() );
+        model.addAttribute("sexList", Sex.values());
         model.addAttribute(
                 "speciesList",
                 speciesRepo.findAll(Sort.by(Sort.Direction.ASC, "commonName"))
         );
-        model.addAttribute("sexList", Sex.values());
+
 
         return "animal/create_animal";
     }
@@ -76,12 +86,15 @@ public class AnimalController {
     public String createOrUpdate(@Valid Animal animalItem, BindingResult bindingR, Model model){
 
         if(bindingR.hasErrors()){
+
             if(animalItem.getId() != null){
                 model.addAttribute(
                         "speciesList",
                         speciesRepo.findAll(Sort.by(Sort.Direction.ASC, "commonName"))
                 );
                 model.addAttribute("sexList", Sex.values());
+
+
                 return "animal/detail_animal";
             }
 
@@ -90,6 +103,8 @@ public class AnimalController {
                     speciesRepo.findAll(Sort.by(Sort.Direction.ASC, "commonName"))
             );
             model.addAttribute("sexList", Sex.values());
+
+
             return "animal/create_animal";
         }
 
@@ -110,9 +125,9 @@ public class AnimalController {
                this.personRepo.save(guy);
            });
         }
+
         this.animalRepo.deleteById(id);
 
         return "redirect:/animal";
     }
-
 }

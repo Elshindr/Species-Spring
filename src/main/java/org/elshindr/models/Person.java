@@ -6,6 +6,10 @@ import jakarta.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Person
+ * Modele pour la classe Person
+ */
 @Entity
 public class Person {
 

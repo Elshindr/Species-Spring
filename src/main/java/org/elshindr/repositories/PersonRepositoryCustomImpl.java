@@ -6,9 +6,12 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import org.elshindr.models.Person;
-
 import java.util.List;
 
+/**
+ * PersonRepository
+ * Classe de définition des méthodes customs de recherches sur la classe Person
+ */
 public class PersonRepositoryCustomImpl implements PersonRepositoryCustom {
 
 

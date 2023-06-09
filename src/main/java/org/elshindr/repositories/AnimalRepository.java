@@ -3,13 +3,16 @@ package org.elshindr.repositories;
 
 import org.elshindr.enums.Sex;
 import org.elshindr.models.Animal;
-import org.elshindr.models.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
+/**
+ * AnimalRepository
+ * Interface des méthodes de recherches sur la classe Animal
+ */
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Integer> {
 

@@ -15,7 +15,7 @@
         <div class="col-md-4">
             <label class="form-label" for="commonName">Nom Commun</label>
             <input class="form-control" type="text" th:field="*{commonName}" id="commonName"/>
-            <span class="errors" th:if="${#fields.hasErrors('commonName')}" th:errors="*{commonName}">Error</span>
+            <span  class="errors" th:if="${#fields.hasErrors('commonName')}" th:errors="*{commonName}">Error</span>
         </div>
 
         <div class="col-md-4">

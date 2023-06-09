@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+/**
+ * Species
+ * Modele pour la classe Species
+ */
 @Entity
 @Table(name="species")
 public class Species {

@@ -7,6 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+/**
+ * SpeciesRepository
+ * Interface des méthodes de recherches sur la classe Species
+ */
 public interface SpeciesRepository extends JpaRepository<Species, Integer> {
     List<Species> findFirstByCommonNameContains(String commonName);
     List<Species> findByLatinNameContainsIgnoreCase(String latinName);

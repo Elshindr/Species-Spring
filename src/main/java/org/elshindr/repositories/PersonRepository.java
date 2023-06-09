@@ -8,7 +8,10 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-
+/**
+ * PersonRepository
+ * Interface des méthodes de recherches sur la classe Person
+ */
 public interface PersonRepository extends JpaRepository<Person, Integer>, PersonRepositoryCustom {
 
     List<Person> findByLastnameContainsOrFirstnameContains(String lastname, String firstname);
